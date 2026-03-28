@@ -26,11 +26,13 @@ class User extends Authenticatable
     ];
 
 
-    public function rol(){
+    public function rol()
+    {
         return $this->belongsTo(Rol::class);
     }
 
-    public function historialSesion(){
+    public function historialSesion()
+    {
         return $this->hasMany(HistorialSession::class);
     }
 
@@ -58,6 +60,6 @@ class User extends Authenticatable
     }
     public function visits()
     {
-        return $this->hasMany(visits::class);
+        return $this->hasMany(visits::class, 'visits_id');
     }
 }
