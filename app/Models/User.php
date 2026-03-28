@@ -30,6 +30,10 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
+    public function historialSesion(){
+        return $this->hasMany(HistorialSession::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

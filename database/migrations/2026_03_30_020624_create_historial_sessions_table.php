@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('historial_sessions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->nullOnDelete();
-            $table->timestamp('start_date')->nullable();
+            $table->foreignId('user_id')->constrained()->restrictOnDelete();
+            $table->timestamp('start_date');
             $table->timestamp('finish_date')->nullable();
             $table->string('ip')->nullable();
             $table->string('user_agent')->nullable();

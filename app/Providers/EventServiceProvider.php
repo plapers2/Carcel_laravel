@@ -23,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
         Event::listen(Login::class, function ($event) {
             HistorialSession::create([
                 'user_id' => $event->user->id,
@@ -34,11 +35,9 @@ class EventServiceProvider extends ServiceProvider
 
         Event::listen(Logout::class, function ($event) {
             HistorialSession::where('user_id', $event->user->id)
-                ->whereNull('fecha_fin')
-                ->latest()
-                ->first()
+                ->whereNull('finish_date')
                 ?->update([
-                    'fecha_fin' => now(),
+                    'finish_date' => now(),
                 ]);
         });
     }
