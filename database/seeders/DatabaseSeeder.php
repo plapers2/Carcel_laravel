@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => '$2y$12$PKvUNt1yuP76B1v5UspJ1ufit8sYJfrBgLVYAPoel8/XbrbsImwtC', // 12345
+            'identification_number' => "123456789"
         ]);
     }
 }
