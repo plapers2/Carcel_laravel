@@ -18,6 +18,7 @@ class UsersSeeder extends Seeder
             DB::table('users')->insert([
                 'name' => $faker->sentence(2),
                 'email' => $faker->email(),
+                'identification_number' => $faker->numberBetween(1000000, 99999999),
                 'email_verified_at' => now(),
                 'password' => $faker->password(5, 15),
                 'remember_token' => $faker->word(),
