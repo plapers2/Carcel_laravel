@@ -16,9 +16,11 @@ class VisitsForm
         return $schema
             ->components([
                 TextInput::make('visitor_relationship')
-                    ->required(),
+                    ->required()
+                    ->hiddenOn('edit'),
                 DateTimePicker::make('start_date')
                     ->required()
+                    ->hiddenOn('edit')
                     ->rules([
                         function () {
                             return function (string $attribute, mixed $value, Closure $fail) {
@@ -28,23 +30,24 @@ class VisitsForm
                             };
                         }
                     ]),
-                DateTimePicker::make('end_date')
-                    ->required(),
                 Select::make('verification')
                     ->label('Estado')
-                    ->options(['En curso' => 'En curso', 'Desaprobada' => 'Desaprobada', 'Terminada' => 'Terminada'])
+                    ->hiddenOn('create')
+                    ->options(['Desaprobada' => 'Desaprobada', 'Terminada' => 'Terminada'])
                     ->required(),
                 Select::make('prisoners_id')
                     ->label('Prisionero')
                     ->relationship('prisoner', 'name')
                     ->searchable()
                     ->preload()
-                    ->required(),
+                    ->required()
+                    ->hiddenOn('edit'),
                 Select::make('visitors_id')
                     ->label('Visitante')
                     ->relationship('visitor', 'name')
                     ->searchable()
                     ->preload()
+                    ->hiddenOn('edit')
                     ->required(),
             ]);
     }
