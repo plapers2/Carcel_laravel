@@ -9,6 +9,6 @@ class visitors extends Model
     protected $fillable = ['name', 'identification_number'];
     public function visits()
     {
-        return $this->belongsTo(Visit::class);
+        return $this->hasMany(Visits::class);
     }
 }

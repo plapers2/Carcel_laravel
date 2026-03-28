@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class prisoners extends Model
 {
     protected $fillable = ['name', 'birth_date', 'admission_date', 'offense', 'assigned_cell'];
+    public function visits()
+    {
+        return $this->hasMany(visits::class);
+    }
 }
