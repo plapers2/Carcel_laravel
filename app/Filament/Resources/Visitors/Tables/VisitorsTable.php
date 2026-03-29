@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Visitors\Tables;
 
+use App\Filament\Resources\Visitors\VisitorsResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -31,7 +32,8 @@ class VisitorsTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->url(fn($record) => VisitorsResource::getUrl('edit', ['record' => $record])),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
