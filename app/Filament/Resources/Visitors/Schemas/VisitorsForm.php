@@ -14,7 +14,8 @@ class VisitorsForm
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('identification_number')->numeric()
-                    ->required(),
+                    ->required()
+                    ->hiddenOn('edit'),
             ]);
     }
 }

@@ -23,5 +23,9 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$12$PKvUNt1yuP76B1v5UspJ1ufit8sYJfrBgLVYAPoel8/XbrbsImwtC', // 12345
             'identification_number' => "123456789"
         ]);
+        $this->call(PrisonersSeeder::class);
+        $this->call(UsersSeeder::class);
+        $this->call(VisitorsSeeder::class);
+        $this->call(VisitsSeeder::class);
     }
 }
