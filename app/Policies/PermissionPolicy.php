@@ -2,26 +2,26 @@
 
 namespace App\Policies;
 
+use Spatie\Permission\Models\Permission;
 use App\Models\User;
-use App\Models\visits;
 use Illuminate\Auth\Access\Response;
 
-class VisitaPolicy
+class PermissionPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('ver visitas');
+        return $user->can("ver permisos");
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, visits $visita): bool
+    public function view(User $user, Permission $permission): bool
     {
-        return $user->can('crear visitas');
+        return $user->can("ver permisos");
     }
 
     /**
@@ -29,29 +29,29 @@ class VisitaPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('aprobar visitas');
+        return $user->can("crear permisos");
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, visits $visita): bool
+    public function update(User $user, Permission $permission): bool
     {
-        return $user->can('editar visitas');
+        return $user->can("editar permisos");
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, visits $visita): bool
+    public function delete(User $user, Permission $permission): bool
     {
-        return $user->can('eliminar visitas');
+        return $user->can("eliminar permisos");
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, visits $visita): bool
+    public function restore(User $user, Permission $permission): bool
     {
         return false;
     }
@@ -59,7 +59,7 @@ class VisitaPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, visits $visita): bool
+    public function forceDelete(User $user, Permission $permission): bool
     {
         return false;
     }
