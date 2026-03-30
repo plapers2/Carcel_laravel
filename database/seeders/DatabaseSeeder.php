@@ -16,6 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => '$2y$12$PKvUNt1yuP76B1v5UspJ1ufit8sYJfrBgLVYAPoel8/XbrbsImwtC', // 12345
+            'identification_number' => "123456789"
+        ]);
 
         $this->call(PrisonersSeeder::class);
         $this->call(UsersSeeder::class);
@@ -23,11 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VisitsSeeder::class);
         $this->call(RolesAndPermissionsSeeder::class);
 
-        User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password' => '$2y$12$PKvUNt1yuP76B1v5UspJ1ufit8sYJfrBgLVYAPoel8/XbrbsImwtC', // 12345
-            'identification_number' => "123456789"
-        ]);
+
     }
 }
