@@ -18,18 +18,6 @@ class EditVisits extends EditRecord
             DeleteAction::make(),
         ];
     }
-    private function validateSunday(array $data): void
-    {
-        $date = Carbon::parse($data['start_date']);
-        if ($date->dayOfWeek !== Carbon::SUNDAY) {
-            Notification::make()
-                ->title('Error')
-                ->body('Visits are only allowed on Sundays!')
-                ->danger()
-                ->send();
-            $this->halt();
-        }
-    }
     private function assignEndTime(array &$data): void
     {
         $start_date = Carbon::parse($this->getRecord()->start_date);
@@ -54,7 +42,6 @@ class EditVisits extends EditRecord
     }
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $this->validateSunday($data);
         $this->assignGuard($data);
         $this->assignEndTime($data);
         return $data;
