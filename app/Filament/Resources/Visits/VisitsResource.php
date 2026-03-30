@@ -18,7 +18,7 @@ class VisitsResource extends Resource
 {
     protected static ?string $model = Visits::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Calendar;
 
     protected static ?string $recordTitleAttribute = 'id';
 

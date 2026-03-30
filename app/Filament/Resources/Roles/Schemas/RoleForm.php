@@ -3,8 +3,7 @@
 namespace App\Filament\Resources\Roles\Schemas;
 
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\CheckboxList;
-use Spatie\Permission\Models\Permission;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
 
 class RoleForm
@@ -16,9 +15,11 @@ class RoleForm
                 TextInput::make('name')
                     ->required(),
 
-                CheckboxList::make('permissions')
+                Select::make('roles')
                     ->relationship('permissions', 'name')
-                    ->columns(3),
+                    ->multiple()
+                    ->preload()
+                    ->searchable()
             ]);
     }
 }

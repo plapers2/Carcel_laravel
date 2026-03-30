@@ -19,7 +19,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::User;
 
     protected static bool $shouldRegisterNavigation = true;
 
@@ -35,7 +35,7 @@ class UserResource extends Resource
         return UsersTable::configure($table);
     }
 
-    
+
     public static function getRelations(): array
     {
         return [
