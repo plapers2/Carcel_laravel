@@ -3,19 +3,17 @@
 namespace App\Filament\Resources\Prisoners\Pages;
 
 use App\Filament\Resources\Prisoners\PrisonersResource;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Actions\EditAction;
+use Filament\Resources\Pages\ViewRecord;
 
-class EditPrisoners extends EditRecord
+class ViewPrisoners extends ViewRecord
 {
     protected static string $resource = PrisonersResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
-            DeleteAction::make(),
+            EditAction::make(),
         ];
     }
 }

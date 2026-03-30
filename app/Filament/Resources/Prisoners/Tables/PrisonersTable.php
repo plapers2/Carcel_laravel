@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources\Prisoners\Tables;
 
-use App\Filament\Resources\Prisoners\PrisonersResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -40,8 +40,8 @@ class PrisonersTable
                 //
             ])
             ->recordActions([
-                EditAction::make()
-                    ->url(fn($record) => PrisonersResource::getUrl('edit', ['record' => $record])),
+                ViewAction::make(),
+                EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

@@ -23,8 +23,9 @@ class Reportes extends Page implements HasForms
     protected static string|\UnitEnum|null $navigationGroup = 'Reportes';
     protected string $view = 'filament.pages.reportes';
     protected static ?int $navigationSort = 1;
-    public ?array $data = [];
 
+    protected static bool $shouldRegisterNavigation = true;
+    public ?array $data = [];
 
     protected function getFormSchema(): array
     {
@@ -122,11 +123,5 @@ class Reportes extends Page implements HasForms
             fn() => print($pdf->output()),
             'reporte_visitas.pdf'
         );
-    }
-
-
-    public static function canAccess(): bool
-    {
-        return true;
     }
 }

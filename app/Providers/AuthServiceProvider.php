@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Filament\Pages\Reportes;
 use App\Models\User;
 use App\Models\visits;
 use App\Policies\PermissionPolicy;
+use App\Policies\ReportPolicy;
 use Spatie\Permission\Models\Role;
 use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
@@ -24,7 +26,8 @@ class AuthServiceProvider extends ServiceProvider
         visits::class => VisitaPolicy::class,
         User::class => UserPolicy::class,
         Role::class => RolePolicy::class,
-        Permission::class => PermissionPolicy::class
+        Permission::class => PermissionPolicy::class,
+        Reportes::class => ReportPolicy::class  
     ];
 
     /**
