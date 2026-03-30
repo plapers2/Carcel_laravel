@@ -38,6 +38,12 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(["name" => 'editar roles']);
         Permission::create(["name" => 'eliminar roles']);
 
+        Permission::create(['name' => "ver permisos"]);
+        Permission::create(["name" => 'crear permisos']);
+        Permission::create(["name" => 'editar permisos']);
+        Permission::create(["name" => 'eliminar permisos']);
+
+
         Permission::create(['name' => "ver reportes"]);
         Permission::create(["name" => 'descargar reportes']);
 

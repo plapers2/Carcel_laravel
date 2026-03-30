@@ -23,9 +23,15 @@ class Reportes extends Page implements HasForms
     protected static string|\UnitEnum|null $navigationGroup = 'Reportes';
     protected string $view = 'filament.pages.reportes';
     protected static ?int $navigationSort = 1;
+    protected static ?string $title = 'Reports of Visits';
 
     protected static bool $shouldRegisterNavigation = true;
     public ?array $data = [];
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->hasRole('admin');
+    }
 
     protected function getFormSchema(): array
     {
@@ -40,12 +46,12 @@ class Reportes extends Page implements HasForms
     {
         return [
             Action::make('pdf')
-                ->label('Exportar PDF')
+                ->label('Export PDF')
                 ->color('danger')
                 ->action('exportPDF'),
 
             Action::make('excel')
-                ->label('Exportar Excel')
+                ->label('Export Excel')
                 ->color("success")
                 ->action('exportExcel'),
         ];
