@@ -14,7 +14,7 @@ class PrisonersSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             DB::table('prisoners')->insert([
                 'name' => $faker->sentence(2),
                 'birth_date' => $faker->date(),

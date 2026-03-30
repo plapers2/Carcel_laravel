@@ -14,7 +14,7 @@ class VisitsSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             DB::table('visits')->insert([
                 'visitor_relationship' => $faker->word(),
                 'start_date' => $faker->dateTime(),

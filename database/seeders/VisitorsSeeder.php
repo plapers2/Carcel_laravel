@@ -14,7 +14,7 @@ class VisitorsSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             DB::table('visitors')->insert([
                 'name' => $faker->sentence(2),
                 'identification_number' => $faker->numberBetween(1000000, 99999999),
