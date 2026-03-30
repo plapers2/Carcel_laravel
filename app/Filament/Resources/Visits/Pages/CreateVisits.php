@@ -41,10 +41,24 @@ class CreateVisits extends CreateRecord
             $this->halt();
         }
     }
+    private function validateVisitTime(array $data): void
+    {
+        $hour = \Carbon\Carbon::parse($data['start_date'])->hour;
+
+        if ($hour < 14 || $hour >= 17) {
+            \Filament\Notifications\Notification::make()
+                ->title('Error')
+                ->body('Visits are only allowed between 14:00 and 17:00!')
+                ->danger()
+                ->send();
+            $this->halt();
+        }
+    }
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $this->validateSunday($data);
         $this->validateFutureDate($data);
+        $this->validateVisitTime($data);
         $this->assignGuard($data);
         $this->assignVerification($data);
 
