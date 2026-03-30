@@ -25,13 +25,13 @@ class VisitsTable
                     ->sortable(),
                 TextColumn::make('verification')
                     ->badge(),
-                TextColumn::make('prisoners_id')
+                TextColumn::make('prisoner.name')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('visitors_id')
+                TextColumn::make('visitor.name')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('users_id')
+                TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
