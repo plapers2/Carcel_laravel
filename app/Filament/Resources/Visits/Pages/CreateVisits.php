@@ -43,7 +43,7 @@ class CreateVisits extends CreateRecord
     }
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $this->validateSunday($data['start_date']);
+        $this->validateSunday($data);
         $this->validateFutureDate($data);
         $this->assignGuard($data);
         $this->assignVerification($data);
