@@ -25,25 +25,25 @@ class VisitsForm
                         function () {
                             return function (string $attribute, mixed $value, Closure $fail) {
                                 if (Carbon::parse($value)->dayOfWeek !== Carbon::SUNDAY) {
-                                    $fail('Las visitas solo se permiten los domingos.');
+                                    $fail('Visits are only allowed on Sundays!');
                                 }
                             };
                         }
                     ]),
                 Select::make('verification')
-                    ->label('Estado')
+                    ->label('State')
                     ->hiddenOn('create')
-                    ->options(['Desaprobada' => 'Desaprobada', 'Terminada' => 'Terminada'])
+                    ->options(['Rejected' => 'Rejected', 'Finished' => 'Finished'])
                     ->required(),
                 Select::make('prisoners_id')
-                    ->label('Prisionero')
+                    ->label('Prisoner')
                     ->relationship('prisoner', 'name')
                     ->searchable()
                     ->preload()
                     ->required()
                     ->hiddenOn('edit'),
                 Select::make('visitors_id')
-                    ->label('Visitante')
+                    ->label('Visitor')
                     ->relationship('visitor', 'name')
                     ->searchable()
                     ->preload()
