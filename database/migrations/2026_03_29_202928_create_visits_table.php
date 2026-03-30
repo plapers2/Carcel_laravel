@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('visitor_relationship');
             $table->dateTime('start_date');
             $table->dateTime('end_date')->nullable();
-            $table->enum('verification', ['En curso', 'Desaprobada', 'Terminada']);
+            $table->enum('verification', ['In progress', 'Rejected', 'Finished']);
             $table->foreignId('prisoners_id')->constrained()->cascadeOnDelete();
             $table->foreignId('visitors_id')->constrained()->cascadeOnDelete();
             $table->foreignId('users_id')->constrained()->cascadeOnDelete();
