@@ -19,7 +19,7 @@ class VisitsSeeder extends Seeder
                 'visitor_relationship' => $faker->word(),
                 'start_date' => $faker->dateTime(),
                 'end_date' => $faker->dateTime(),
-                'verification' => $faker->randomElement(['En curso', 'Desaprobada', 'Terminada']),
+                'verification' => $faker->randomElement(['In progress', 'Rejected', 'Finished']),
                 'prisoners_id' => $faker->numberBetween(1,20),
                 'visitors_id' => $faker->numberBetween(1, 20),
                 'users_id' => $faker->numberBetween(1, 20),

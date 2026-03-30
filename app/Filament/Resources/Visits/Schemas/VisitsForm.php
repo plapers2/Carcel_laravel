@@ -20,30 +20,37 @@ class VisitsForm
                     ->hiddenOn('edit'),
                 DateTimePicker::make('start_date')
                     ->required()
+                    ->minDate(now())
+                    ->time()
                     ->hiddenOn('edit')
                     ->rules([
-                        function () {
-                            return function (string $attribute, mixed $value, Closure $fail) {
-                                if (Carbon::parse($value)->dayOfWeek !== Carbon::SUNDAY) {
-                                    $fail('Las visitas solo se permiten los domingos.');
-                                }
-                            };
+                        fn() =>
+                        function (string $attribute, mixed $value, Closure $fail) {
+                            if (Carbon::parse($value)->dayOfWeek !== Carbon::SUNDAY) {
+                                $fail('Visits are only allowed on Sundays!');
+                            }
+                        },
+                        fn() => function (string $attribute, $value, \Closure $fail) {
+                            $hour = \Carbon\Carbon::parse($value)->hour;
+                            if ($hour < 14 || $hour >= 17) {
+                                $fail('Visits are only allowed between 14:00 and 17:00!');
+                            }
                         }
                     ]),
                 Select::make('verification')
-                    ->label('Estado')
+                    ->label('State')
                     ->hiddenOn('create')
-                    ->options(['Desaprobada' => 'Desaprobada', 'Terminada' => 'Terminada'])
+                    ->options(['Rejected' => 'Rejected', 'Finished' => 'Finished'])
                     ->required(),
                 Select::make('prisoners_id')
-                    ->label('Prisionero')
+                    ->label('Prisoner')
                     ->relationship('prisoner', 'name')
                     ->searchable()
                     ->preload()
                     ->required()
                     ->hiddenOn('edit'),
                 Select::make('visitors_id')
-                    ->label('Visitante')
+                    ->label('Visitor')
                     ->relationship('visitor', 'name')
                     ->searchable()
                     ->preload()

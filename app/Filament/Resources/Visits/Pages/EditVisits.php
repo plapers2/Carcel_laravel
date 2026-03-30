@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Visits\Pages;
 use App\Filament\Resources\Visits\VisitsResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Carbon\Carbon;
+use Filament\Notifications\Notification;
 
 class EditVisits extends EditRecord
 {
@@ -16,29 +18,16 @@ class EditVisits extends EditRecord
             DeleteAction::make(),
         ];
     }
-    private function validarDomingo(string $date): void
+    private function assignEndTime(array &$data): void
     {
-        $date = \Carbon\Carbon::parse($date);
-
-        if ($date->dayOfWeek !== \Carbon\Carbon::SUNDAY) {
-            \Filament\Notifications\Notification::make()
-                ->title('Error')
-                ->body('Las visitas solo se permiten los domingos.')
-                ->danger()
-                ->send();
-            $this->halt();
-        }
-    }
-    private function asignarHoraFinVisita(array &$data): void
-    {
-        $start_date = $this->getRecord()->start_date;
-        if ($data['verification'] == 'Terminada') {
-            if ($start_date < now()) {
+        $start_date = Carbon::parse($this->getRecord()->start_date);
+        if ($data['verification'] === 'Finished') {
+            if ($start_date->isPast()) {
                 $data['end_date'] = now();
             } else {
-                \Filament\Notifications\Notification::make()
+                Notification::make()
                     ->title('Error')
-                    ->body('La visita no se ah realizado aun, no se puede terminar!.')
+                    ->body('The visit has not taken place yet, it cannot be marked as finished.')
                     ->danger()
                     ->send();
                 $this->halt();
@@ -47,16 +36,14 @@ class EditVisits extends EditRecord
             $data['end_date'] = $start_date;
         }
     }
-
-    private function asignarGuardia(array &$data): void
+    private function assignGuard(array &$data): void
     {
         $data['users_id'] = auth()->id();
     }
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $this->validarDomingo($this->getRecord()->start_date);
-        $this->asignarGuardia($data);
-        $this->asignarHoraFinVisita($data);
+        $this->assignGuard($data);
+        $this->assignEndTime($data);
         return $data;
     }
 }
