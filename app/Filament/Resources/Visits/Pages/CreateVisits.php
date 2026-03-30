@@ -28,7 +28,7 @@ class CreateVisits extends CreateRecord
     }
     private function assignVerification(array &$data): void
     {
-        $data['verification'] = 'En curso';
+        $data['verification'] = 'In progress';
     }
     private function validateFutureDate(array &$data): void
     {
