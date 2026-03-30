@@ -23,11 +23,11 @@ class VisitasExport implements FromCollection, WithHeadings, WithStyles, ShouldA
             return [
                 'Prisionero' => $v->prisoner->name ?? '',
                 'Visitante' => $v->visitor->name ?? '',
-                'Relación' => $v->visitor_relationship,
-                'Fecha Inicio' => \Carbon\Carbon::parse($v->start_date)->format('d/m/Y H:i'),
-                'Fecha Fin' => $v->end_date
+                'Relationship' => $v->visitor_relationship,
+                'Start Date' => \Carbon\Carbon::parse($v->start_date)->format('d/m/Y H:i'),
+                'End Date' => $v->end_date
                     ? \Carbon\Carbon::parse($v->end_date)->format('d/m/Y H:i')
-                    : 'En curso',
+                    : 'In progress',
                 'Estado' => $v->verification,
             ];
         });

@@ -13,7 +13,7 @@ class ReportPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can("ver reportes");
+        return $user->can("read reportes");
     }
 
     /**
@@ -21,7 +21,7 @@ class ReportPolicy
      */
     public function view(User $user, Reportes $report): bool
     {
-        return $user->can("ver reportes");
+        return $user->can("read reportes");
     }
 
     /**
@@ -29,7 +29,7 @@ class ReportPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can("descargar reportes");
+        return $user->can("download reportes");
     }
 
     /**

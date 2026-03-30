@@ -16,54 +16,56 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        // Permisos
-        Permission::create(['name' => 'ver prisioneros']);
-        Permission::create(['name' => "crear prisioneros"]);
-        Permission::create(['name' => "editar prisioneros"]);
-        Permission::create(['name' => "eliminar prisioneros"]);
+        // permissions
+        Permission::create(['name' => 'read prisoners']);
+        Permission::create(['name' => "create prisoners"]);
+        Permission::create(['name' => "edit prisoners"]);
+        Permission::create(['name' => "delete prisoners"]);
 
-        Permission::create(['name' => "ver visitas"]);
-        Permission::create(['name' => 'crear visitas']);
-        Permission::create(['name' => "editar visitas"]);
-        Permission::create(['name' => "eliminar visitas"]);
-        Permission::create(['name' => 'aprobar visitas']);
+        Permission::create(['name' => "read visits"]);
+        Permission::create(['name' => 'create visits']);
+        Permission::create(['name' => "edit visits"]);
+        Permission::create(['name' => "delete visits"]);
+        Permission::create(['name' => 'approve visits']);
 
-        Permission::create(['name' => "ver usuarios"]);
-        Permission::create(["name" => 'crear usuarios']);
-        Permission::create(["name" => 'editar usuarios']);
-        Permission::create(["name" => 'eliminar usuarios']);
+        Permission::create(['name' => "read users"]);
+        Permission::create(["name" => 'create users']);
+        Permission::create(["name" => 'edit users']);
+        Permission::create(["name" => 'delete users']);
 
-        Permission::create(['name' => "ver roles"]);
-        Permission::create(["name" => 'crear roles']);
-        Permission::create(["name" => 'editar roles']);
-        Permission::create(["name" => 'eliminar roles']);
+        Permission::create(['name' => "read roles"]);
+        Permission::create(["name" => 'create roles']);
+        Permission::create(["name" => 'edit roles']);
+        Permission::create(["name" => 'delete roles']);
 
-        Permission::create(['name' => "ver permisos"]);
-        Permission::create(["name" => 'crear permisos']);
-        Permission::create(["name" => 'editar permisos']);
-        Permission::create(["name" => 'eliminar permisos']);
+        Permission::create(['name' => "read permissions"]);
+        Permission::create(["name" => 'create permissions']);
+        Permission::create(["name" => 'edit permissions']);
+        Permission::create(["name" => 'delete permissions']);
 
 
-        Permission::create(['name' => "ver reportes"]);
-        Permission::create(["name" => 'descargar reportes']);
+        Permission::create(['name' => "read reportes"]);
+        Permission::create(["name" => 'download reportes']);
+
+        Permission::create(["name" => 'read dashboard']);
 
 
         // Roles
         $admin = Role::create(['name' => 'admin']);
-        $guardia = Role::create(['name' => 'guardia']);
+        $guardia = Role::create(['name' => 'guard']);
 
-        // Asignar permisos
+        // Asignar permissions
         $admin->givePermissionTo(Permission::all());
         $guardia->givePermissionTo([
-            'ver prisioneros',
-            "crear prisioneros",
-            "editar prisioneros",
-            "eliminar prisioneros",
-            'ver visitas',
-            "crear visitas",
-            "editar visitas",
-            "eliminar visitas",
-            "aprobar visitas"
+            'read prisoners',
+            "create prisoners",
+            "edit prisoners",
+            "delete prisoners",
+            'read visits',
+            "create visits",
+            "edit visits",
+            "delete visits",
+            "approve visits"
         ]);
 
         // Asignar el rol de admin al correo

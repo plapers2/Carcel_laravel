@@ -13,6 +13,7 @@ use Filament\Forms\Components\DatePicker;
 use App\Exports\VisitasExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action;
+use Illuminate\Support\Facades\Auth;
 
 class Reportes extends Page implements HasForms
 {
@@ -30,7 +31,7 @@ class Reportes extends Page implements HasForms
 
     public static function canAccess(): bool
     {
-        return auth()->user()?->hasRole('admin');
+        return Auth::check() && Auth::user()->hasRole('admin');
     }
 
     protected function getFormSchema(): array

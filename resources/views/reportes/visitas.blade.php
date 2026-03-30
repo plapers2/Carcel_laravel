@@ -62,12 +62,12 @@
 <table>
     <thead>
         <tr>
-            <th>Prisionero</th>
-            <th>Visitante</th>
-            <th>Relación</th>
-            <th>Inicio</th>
-            <th>Fin</th>
-            <th>Estado</th>
+            <th>Prisoner</th>
+            <th>Visitor</th>
+            <th>RelationShip</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>State</th>
         </tr>
     </thead>
 
@@ -75,9 +75,9 @@
         @foreach($datos as $visita)
             @php
                 $clase = match($visita->verification) {
-                    'Terminada' => 'terminada',
-                    'En curso' => 'en-curso',
-                    'Desaprobada' => 'desaprobada',
+                    'Finished' => 'finished',
+                    'In progress' => 'in-progress',
+                    'Rejected' => 'rejected',
                     default => ''
                 };
             @endphp
@@ -94,7 +94,7 @@
                 <td>
                     {{ $visita->end_date
                         ? \Carbon\Carbon::parse($visita->end_date)->format('d/m/Y H:i')
-                        : 'En curso' }}
+                        : 'In progress' }}
                 </td>
 
                 <td>{{ $visita->verification }}</td>

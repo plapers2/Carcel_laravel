@@ -22,7 +22,8 @@ class UserForm
                     ->required()
                     ->maxLength(20)
                     ->rule('regex:/^[0-9]+$/')
-                    ->inputMode('numeric'),
+                    ->inputMode('numeric')
+                    ->unique(),
                 TextInput::make('email')
                     ->label('Email address')
                     ->email()

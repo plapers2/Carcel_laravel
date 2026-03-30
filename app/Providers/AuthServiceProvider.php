@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Filament\Pages\Dashboard;
 use App\Filament\Pages\Reportes;
 use App\Models\User;
 use App\Models\visits;
+use App\Policies\DashboardPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ReportPolicy;
 use Spatie\Permission\Models\Role;
@@ -21,13 +23,13 @@ class AuthServiceProvider extends ServiceProvider
      * The policy mappings for the application.
      */
     protected $policies = [
-        // Aquí registras tus policies
-        // Ejemplo:
+        // Aquí registras los policies
         visits::class => VisitaPolicy::class,
         User::class => UserPolicy::class,
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
-        Reportes::class => ReportPolicy::class
+        Reportes::class => ReportPolicy::class,
+        Dashboard::class => DashboardPolicy::class
     ];
 
     /**

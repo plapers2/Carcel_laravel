@@ -13,19 +13,19 @@ class StatsDashboard extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Prisioneros', prisoners::count())
-                ->description('Total registrados')
+            Stat::make('Prisoners', prisoners::count())
+                ->description('Total registered')
                 ->icon('heroicon-o-lock-closed'),
 
-            Stat::make('Visitantes', visitors::count())
-                ->description('Total registrados')
+            Stat::make('Visitors', visitors::count())
+                ->description('Total registered')
                 ->icon('heroicon-o-user-group'),
 
-            Stat::make('Visitas hoy', visits::whereDate('start_date', now())->count())
-                ->description('Hoy')
+            Stat::make('Today Visits', visits::whereDate('start_date', now())->count())
+                ->description('Today')
                 ->icon('heroicon-o-calendar'),
 
-            Stat::make('Rechazadas', visits::where('verification', 'Desaprobada')->count())
+            Stat::make('Rejected', visits::where('verification', 'Rejected')->count())
                 ->description('Total')
                 ->icon('heroicon-o-x-circle'),
         ];

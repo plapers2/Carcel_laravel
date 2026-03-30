@@ -33,9 +33,9 @@ class UltimasVisitas extends BaseWidget
                 TextColumn::make('verification')
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
-                        'aprobada' => 'success',
-                        'rechazada' => 'danger',
-                        'pendiente' => 'warning',
+                        'Finished' => 'success',
+                        'Rejected' => 'danger',
+                        'In progress' => 'warning',
                         default => 'gray',
                     }),
             ]);
