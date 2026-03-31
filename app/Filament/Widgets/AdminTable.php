@@ -2,15 +2,17 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Widgets\TableWidget as BaseWidget;
-use Filament\Tables\Table;
-use Filament\Tables\Columns\TextColumn;
 use App\Models\visits;
+use Filament\Actions\BulkActionGroup;
+use Filament\Tables\Table;
+use Filament\Widgets\TableWidget;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Filament\Tables\Columns\TextColumn;
 
-class UltimasVisitas extends BaseWidget
+class AdminTable extends TableWidget
 {
-    protected static ?string $heading = 'Últimas visitas';
-
+    protected static bool $isDiscovered = false;
     public function table(Table $table): Table
     {
         return $table
@@ -19,15 +21,15 @@ class UltimasVisitas extends BaseWidget
             )
             ->columns([
                 TextColumn::make('visitor.name')
-                    ->label('Visitante')
+                    ->label('Visitor')
                     ->searchable(),
 
                 TextColumn::make('prisoner.name')
-                    ->label('Prisionero')
+                    ->label('Prisoner')
                     ->searchable(),
 
                 TextColumn::make('start_date')
-                    ->label('Fecha')
+                    ->label('Start Date')
                     ->dateTime(),
 
                 TextColumn::make('verification')

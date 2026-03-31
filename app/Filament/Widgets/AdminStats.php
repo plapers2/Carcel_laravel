@@ -2,14 +2,15 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use Filament\Widgets\StatsOverviewWidget\Stat;
 use App\Models\prisoners;
 use App\Models\visitors;
 use App\Models\visits;
+use Filament\Widgets\StatsOverviewWidget;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 
-class StatsDashboard extends BaseWidget
+class AdminStats extends StatsOverviewWidget
 {
+    protected static bool $isDiscovered = false;
     protected function getStats(): array
     {
         return [
