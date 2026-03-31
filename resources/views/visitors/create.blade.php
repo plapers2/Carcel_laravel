@@ -28,7 +28,7 @@
             <div class="my-5">
                 <label class="block text-sm font-medium text-gray-700">Name</label>
                 <input type="text" name="name" value="{{ old('name') }}"
-                    class="w-full mt-1 p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-400 outline-none">
+                    class="w-full mt-1 p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none">
 
                 @error('name')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -39,7 +39,7 @@
             <div class="my-5">
                 <label class="block text-sm font-medium text-gray-700">Identification number</label>
                 <input type="text" name="identification_number" value="{{ old('identification_number') }}"
-                    class="w-full mt-1 p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-400 outline-none">
+                    class="w-full mt-1 p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none">
 
                 @error('identification_number')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -48,14 +48,14 @@
 
             <!-- Botón -->
             <button type="submit"
-                class="w-full bg-[#ffb900] text-white py-2 rounded-lg cursor-pointer hover:bg-orange-3  00 transition">
+                class="w-full bg-blue-600 text-white py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition">
                 Register
             </button>
         </form>
 
         <!-- Volver al login -->
         <div class="text-center mt-4">
-            <a href="/admin/login" class="text-sm text-orange-500 hover:underline">
+            <a href="/admin/login" class="text-sm text-blue-500 hover:underline">
                 Back to the Login
             </a>
         </div>
