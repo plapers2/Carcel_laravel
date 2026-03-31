@@ -21,7 +21,7 @@ class PrisonersResource extends Resource
 {
     protected static ?string $model = prisoners::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::LockClosed;
 
     protected static ?string $recordTitleAttribute = 'name';
 

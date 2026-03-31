@@ -2,18 +2,22 @@
 
 namespace App\Filament\Pages;
 
-use Filament\Forms;
 use Filament\Pages\Page;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Support\Icons\Heroicon;
-use App\Models\visits;
-use Maatwebsite\Excel\Facades\Excel;
 use Filament\Forms\Components\DatePicker;
-use App\Exports\VisitasExport;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action;
+use Filament\Notifications\Notification;
+
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
+
+use App\Models\visits;
+use App\Exports\VisitasExport;
+
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Reportes extends Page implements HasForms
 {
@@ -21,41 +25,44 @@ class Reportes extends Page implements HasForms
 
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::Document;
     protected static ?string $navigationLabel = 'Visits';
-    protected static string|\UnitEnum|null $navigationGroup = 'Reportes';
-    protected string $view = 'filament.pages.reportes';
-    protected static ?int $navigationSort = 1;
+    protected static string|\UnitEnum|null $navigationGroup = 'Documents';
     protected static ?string $title = 'Reports of Visits';
+    protected static ?int $navigationSort = 1;
 
-    protected static bool $shouldRegisterNavigation = true;
+    protected string $view = 'filament.pages.reportes';
+
     public ?array $data = [];
+    public ?Collection $resultados = null;
 
+    /**
+     * Control de acceso
+     */
     public static function canAccess(): bool
     {
         return Auth::check() && Auth::user()->hasRole('admin');
     }
 
+    /**
+     * Formulario
+     */
     protected function getFormSchema(): array
     {
         return [
-            DatePicker::make('start_date')->required(),
-            DatePicker::make('end_date')->required(),
+            DatePicker::make('start_date')
+                ->label('Fecha inicio')
+                ->required()
+                ->maxDate(fn(callable $get) => $get('end_date')),
+
+            DatePicker::make('end_date')
+                ->label('Fecha fin')
+                ->required()
+                ->minDate(fn(callable $get) => $get('start_date')),
         ];
     }
 
-
-    protected function getActions(): array
+    protected function getFormStatePath(): string
     {
-        return [
-            Action::make('pdf')
-                ->label('Export PDF')
-                ->color('danger')
-                ->action('exportPDF'),
-
-            Action::make('excel')
-                ->label('Export Excel')
-                ->color("success")
-                ->action('exportExcel'),
-        ];
+        return 'data';
     }
 
     public function mount(): void
@@ -66,63 +73,110 @@ class Reportes extends Page implements HasForms
         ]);
     }
 
-    public function submit()
+    /**
+     * Acciones (botones)
+     */
+    protected function getActions(): array
     {
-        $data = $this->form->getState();
+        return [
+            Action::make('pdf')
+                ->label('Export PDF')
+                ->icon('heroicon-o-document')
+                ->color('danger')
+                ->action('exportPDF'),
 
-        dd($data);
+            Action::make('excel')
+                ->label('Export Excel')
+                ->icon('heroicon-o-table-cells')
+                ->color('success')
+                ->action('exportExcel'),
+        ];
     }
 
-    protected function getFormStatePath(): string
+    /**
+     * Obtener filtros
+     */
+    protected function getFiltros(): array
     {
-        return 'data';
+        return $this->form->getState();
     }
 
-    public function getDatos()
+    /**
+     * Validación centralizada
+     */
+    protected function validarFiltros(): bool
     {
+        ['start_date' => $inicio, 'end_date' => $fin] = $this->getFiltros();
 
-        $data = $this->form->getState();
+        if (!$inicio || !$fin) {
+            Notification::make()
+                ->title('Debes seleccionar ambas fechas')
+                ->danger()
+                ->send();
 
-        $inicio = $data['start_date'];
-        $fin = $data['end_date'];
-
-        if ($inicio > $fin) {
-            throw new \Exception('La fecha inicio no puede ser mayor que la final');
+            return false;
         }
 
-        return visits::with(['prisoner', 'visitor'])
+        return true;
+    }
+
+    /**
+     * Consulta optimizada
+     */
+    public function getDatos(): Collection
+    {
+        ['start_date' => $inicio, 'end_date' => $fin] = $this->getFiltros();
+
+        return visits::query()
+            ->with(['prisoner', 'visitor'])
             ->where(function ($query) use ($inicio, $fin) {
-                $query
-                    // empieza dentro del rango
-                    ->whereBetween('start_date', [$inicio, $fin])
-
-                    // O termina dentro del rango
+                $query->whereBetween('start_date', [$inicio, $fin])
                     ->orWhereBetween('end_date', [$inicio, $fin])
-
-                    // O abarca todo el rango
                     ->orWhere(function ($q) use ($inicio, $fin) {
                         $q->where('start_date', '<=', $inicio)
                             ->where(function ($q2) use ($fin) {
                                 $q2->where('end_date', '>=', $fin)
-                                    ->orWhereNull('end_date'); // visitas activas
+                                    ->orWhereNull('end_date');
                             });
                     });
             })
+            ->latest()
             ->get();
     }
 
+    /**
+     * Evita repetir consultas
+     */
+    protected function getCachedDatos(): Collection
+    {
+        return $this->resultados ?? $this->getDatos();
+    }
+
+    /**
+     * Exportar Excel
+     */
     public function exportExcel()
     {
+        if (!$this->validarFiltros()) {
+            return;
+        }
+
         return Excel::download(
-            new VisitasExport($this->getDatos()),
+            new VisitasExport($this->getCachedDatos()),
             'reporte_visitas.xlsx'
         );
     }
 
-
+    /**
+     * Exportar PDF
+     */
     public function exportPDF()
     {
-        $datos = $this->getDatos();
+        if (!$this->validarFiltros()) {
+            return;
+        }
+
+        $datos = $this->getCachedDatos();
 
         $pdf = Pdf::loadView('reportes.visitas', compact('datos'));
 

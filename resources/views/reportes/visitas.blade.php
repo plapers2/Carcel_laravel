@@ -56,7 +56,7 @@
 <h1>Reporte de Visitas</h1>
 
 <div class="info">
-    <strong>Fecha generación:</strong> {{ now()->format('d/m/Y H:i') }}
+    <strong>Date of Generation:</strong> {{ now()->format('d/m/Y H:i') }}
 </div>
 
 <table>
