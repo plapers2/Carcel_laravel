@@ -15,7 +15,7 @@ class HistorialSession extends Model
     ];
 
 
-    public function usuario()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
