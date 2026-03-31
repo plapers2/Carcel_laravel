@@ -24,7 +24,13 @@ class VisitsTable
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('verification')
-                    ->badge(),
+                    ->badge()
+                    ->color(fn(string $state) => match ($state) {
+                        'Finished' => 'success',
+                        'Rejected' => 'danger',
+                        'In progress' => 'warning',
+                        default => 'gray',
+                    }),
                 TextColumn::make('prisoner.name')
                     ->numeric()
                     ->sortable(),
