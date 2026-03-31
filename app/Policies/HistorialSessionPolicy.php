@@ -13,7 +13,7 @@ class HistorialSessionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->can('read historialSession');
     }
 
     /**
@@ -21,7 +21,7 @@ class HistorialSessionPolicy
      */
     public function view(User $user, HistorialSession $historialSession): bool
     {
-        return false;
+        return $user->can('read historialSession');
     }
 
     /**

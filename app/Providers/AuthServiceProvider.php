@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Filament\Pages\Dashboard;
 use App\Filament\Pages\Reportes;
+use App\Models\HistorialSession;
 use App\Models\User;
 use App\Models\visits;
 use App\Policies\DashboardPolicy;
+use App\Policies\HistorialSessionPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ReportPolicy;
 use Spatie\Permission\Models\Role;
@@ -29,7 +31,8 @@ class AuthServiceProvider extends ServiceProvider
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
         Reportes::class => ReportPolicy::class,
-        Dashboard::class => DashboardPolicy::class
+        Dashboard::class => DashboardPolicy::class,
+        HistorialSession::class => HistorialSessionPolicy::class
     ];
 
     /**

@@ -43,6 +43,8 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(["name" => 'edit permissions']);
         Permission::create(["name" => 'delete permissions']);
 
+        Permission::create(['name' => "read historialSession"]);
+
 
         Permission::create(['name' => "read reportes"]);
         Permission::create(["name" => 'download reportes']);

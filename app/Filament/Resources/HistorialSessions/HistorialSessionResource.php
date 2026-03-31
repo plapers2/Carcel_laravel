@@ -18,7 +18,7 @@ class HistorialSessionResource extends Resource
 {
     protected static ?string $model = HistorialSession::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Clock;
 
     protected static ?string $recordTitleAttribute = 'user.name';
 
