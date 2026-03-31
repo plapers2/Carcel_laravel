@@ -2,6 +2,12 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\AdminStats;
+use App\Filament\Widgets\AdminTable;
+use App\Filament\Widgets\AdminChart;
+use App\Filament\Widgets\GuardChart;
+use App\Filament\Widgets\GuardStats;
+use App\Filament\Widgets\GuardTable;
 use Filament\Pages\Dashboard as BaseDashboard;
 use BackedEnum;
 use Filament\Support\Icons\Heroicon;
@@ -17,9 +23,24 @@ class Dashboard extends BaseDashboard
 
     protected static ?string $title = 'Dashboard';
 
-    public static function canAccess(): bool
+    protected function getHeaderWidgets(): array
     {
-        return Auth::check() && Auth::user()->hasRole('admin');
-    }
+        $user = Auth::user();
 
+        return match (true) {
+            $user?->hasRole('admin') => [
+                AdminStats::class,
+                AdminTable::class,
+                AdminChart::class,
+            ],
+
+            $user?->hasRole('guard') => [
+                GuardStats::class,
+                GuardTable::class,
+                GuardChart::class,
+            ],
+
+            default => [],
+        };
+    }
 }

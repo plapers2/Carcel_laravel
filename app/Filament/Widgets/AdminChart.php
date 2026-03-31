@@ -2,13 +2,14 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Widgets\ChartWidget;
 use App\Models\visits;
 use Carbon\Carbon;
+use Filament\Widgets\ChartWidget;
 
-class VisitasChart extends ChartWidget
+class AdminChart extends ChartWidget
 {
-    protected ?string $heading = 'Visitas últimos 7 días';
+    protected ?string $heading = 'Admin Chart';
+    protected static bool $isDiscovered = false;
 
     protected function getData(): array
     {
