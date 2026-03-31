@@ -32,7 +32,7 @@ class ViewPrisoners extends ViewRecord
                         new VisitasExport($visits),
                         'prisoner_visit_history.xlsx'
                     );
-                }),
+                })->visible(fn() => auth()->user()?->hasRole('admin')),
             Action::make('exportPdf')
                 ->label('Export PDF')
                 ->icon('heroicon-o-document')
@@ -51,7 +51,7 @@ class ViewPrisoners extends ViewRecord
                         fn() => print($pdf->output()),
                         'prisoner_visit_history.pdf'
                     );
-                }),
+                })->visible(fn() => auth()->user()?->hasRole('admin')),
         ];
     }
 }

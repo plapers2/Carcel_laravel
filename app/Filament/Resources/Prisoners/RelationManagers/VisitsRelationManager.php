@@ -20,6 +20,11 @@ class VisitasRelationManager extends RelationManager
 
     protected static ?string $title = 'Visit History';
 
+    public static function canViewForRecord($ownerRecord, string $pageClass): bool
+    {
+        return auth()->check() && auth()->user()->hasRole('admin');
+    }
+
     public function table(Table $table): Table
     {
         return $table
