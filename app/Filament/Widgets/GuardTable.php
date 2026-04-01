@@ -37,9 +37,11 @@ class GuardTable extends TableWidget
                 TextColumn::make('verification')
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
+                        'Pending' => 'warning',
+                        'Approved' => 'info',
+                        'In progress' => 'primary',
                         'Finished' => 'success',
                         'Rejected' => 'danger',
-                        'In progress' => 'warning',
                         default => 'gray',
                     }),
             ]);

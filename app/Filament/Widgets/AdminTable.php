@@ -13,6 +13,8 @@ use Filament\Tables\Columns\TextColumn;
 class AdminTable extends TableWidget
 {
     protected static bool $isDiscovered = false;
+    protected static ?string $heading = 'Latest Visits';
+
     public function table(Table $table): Table
     {
         return $table
@@ -35,9 +37,11 @@ class AdminTable extends TableWidget
                 TextColumn::make('verification')
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
+                        'Pending' => 'warning',
+                        'Approved' => 'info',
+                        'In progress' => 'primary',
                         'Finished' => 'success',
                         'Rejected' => 'danger',
-                        'In progress' => 'warning',
                         default => 'gray',
                     }),
             ]);
