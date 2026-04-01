@@ -8,7 +8,7 @@ use Filament\Widgets\ChartWidget;
 
 class AdminChart extends ChartWidget
 {
-    protected ?string $heading = 'Admin Chart';
+    protected ?string $heading = 'Visits of the last 7 days';
     protected static bool $isDiscovered = false;
 
     protected function getData(): array

@@ -16,7 +16,7 @@ class VisitorsSeeder extends Seeder
         $faker = Faker::create();
         for ($i = 0; $i < 50; $i++) {
             DB::table('visitors')->insert([
-                'name' => $faker->sentence(2),
+                'name' => $faker->name(),
                 'identification_number' => $faker->numberBetween(1000000, 99999999),
                 'created_at' => now(),
                 'updated_at' => now(),

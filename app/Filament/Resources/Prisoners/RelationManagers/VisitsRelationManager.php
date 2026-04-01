@@ -57,14 +57,18 @@ class VisitasRelationManager extends RelationManager
                     ->label('Status')
                     ->badge()
                     ->formatStateUsing(fn(?string $state) => match ($state) {
-                        'Finished' => 'Finished',
-                        'In progress' => 'In Progress',
+                        'Pending' => 'Pending',
+                        'Approved' => 'Approved',
+                        "Finished" => 'Finished',
                         'Rejected' => 'Rejected',
+                        "In progress" => "In Progress",
                         default => 'Unknown',
                     })
                     ->color(fn(?string $state): string => match ($state) {
+                        'Pending' => 'warning',
+                        'Approved' => 'info',
+                        'In progress' => 'primary',
                         'Finished' => 'success',
-                        'In progress' => 'warning',
                         'Rejected' => 'danger',
                         default => 'gray',
                     }),
@@ -74,9 +78,11 @@ class VisitasRelationManager extends RelationManager
                 SelectFilter::make('verification')
                     ->label('Status')
                     ->options([
-                        'finished' => 'Finished',
-                        'in progress' => 'In Progress',
-                        'rejected' => 'Rejected',
+                        'Pending' => 'Pending',
+                        'Approved' => 'Approved',
+                        "Finished" => 'Finished',
+                        'Rejected' => 'Rejected',
+                        "In progress" => "In progress"
                     ]),
 
                 Filter::make('date')
