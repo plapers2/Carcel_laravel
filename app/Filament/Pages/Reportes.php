@@ -49,12 +49,12 @@ class Reportes extends Page implements HasForms
     {
         return [
             DatePicker::make('start_date')
-                ->label('Fecha inicio')
+                ->label('Start Date')
                 ->required()
                 ->maxDate(fn(callable $get) => $get('end_date')),
 
             DatePicker::make('end_date')
-                ->label('Fecha fin')
+                ->label('End Date')
                 ->required()
                 ->minDate(fn(callable $get) => $get('start_date')),
         ];
@@ -110,7 +110,7 @@ class Reportes extends Page implements HasForms
 
         if (!$inicio || !$fin) {
             Notification::make()
-                ->title('Debes seleccionar ambas fechas')
+                ->title('You must select both dates')
                 ->danger()
                 ->send();
 
@@ -163,7 +163,7 @@ class Reportes extends Page implements HasForms
 
         return Excel::download(
             new VisitasExport($this->getCachedDatos()),
-            'reporte_visitas.xlsx'
+            'visits-report.xlsx'
         );
     }
 
@@ -182,7 +182,7 @@ class Reportes extends Page implements HasForms
 
         return response()->streamDownload(
             fn() => print($pdf->output()),
-            'reporte_visitas.pdf'
+            'visits-report.pdf'
         );
     }
 }
