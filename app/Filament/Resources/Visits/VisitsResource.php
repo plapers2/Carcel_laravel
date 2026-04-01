@@ -18,7 +18,7 @@ class VisitsResource extends Resource
 {
     protected static ?string $model = Visits::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Calendar;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
 
     protected static ?string $recordTitleAttribute = 'id';
 
@@ -37,6 +37,17 @@ class VisitsResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        $count = static::getModel()::where('verification', 'Pending')->count();
+        return "Pending: {$count}";
+    }
+
+    public static function getNavigationBadgeColor(): string
+    {
+        return 'warning';
     }
 
     public static function getPages(): array
