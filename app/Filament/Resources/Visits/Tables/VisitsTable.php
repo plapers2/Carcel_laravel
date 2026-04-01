@@ -27,11 +27,11 @@ class VisitsTable
                 TextColumn::make('verification')
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
-                        'Approve' => 'success',
-                        'Pending' => 'gray',
+                        'Pending' => 'warning',
+                        'Approved' => 'info',
+                        'In progress' => 'primary',
                         'Finished' => 'success',
                         'Rejected' => 'danger',
-                        'In progress' => 'warning',
                         default => 'gray',
                     }),
                 TextColumn::make('prisoner.name')
@@ -61,13 +61,13 @@ class VisitsTable
                     ->color('success')
                     ->icon('heroicon-o-check')
                     ->visible(fn($record) => $record->verification === 'Pending')
-                    ->action(fn($record) => $record->update(['verification' => 'Approve'])),
+                    ->action(fn($record) => $record->update(['verification' => 'Approved'])),
 
                 Action::make('reject')
                     ->label('Reject')
                     ->color('danger')
                     ->icon('heroicon-o-x-mark')
-                    ->visible(fn($record) => in_array($record->verification, ['Pending', 'Approve']))
+                    ->visible(fn($record) => in_array($record->verification, ['Pending', 'Approved']))
                     ->action(fn($record) => $record->update(['verification' => 'Rejected'])),
 
 
