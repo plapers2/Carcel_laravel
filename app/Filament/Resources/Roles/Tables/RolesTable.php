@@ -14,7 +14,8 @@ class RolesTable
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                ->wrap(),
             ])
             ->filters([
                 //
