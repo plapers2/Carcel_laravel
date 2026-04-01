@@ -23,19 +23,31 @@ class GuardTable extends TableWidget
             )
             ->columns([
                 TextColumn::make('visitor.name')
+                    ->wrap()
                     ->label('Visitor')
                     ->searchable(),
 
                 TextColumn::make('prisoner.name')
+                    ->wrap()
                     ->label('Prisoner')
                     ->searchable(),
 
                 TextColumn::make('start_date')
+                    ->wrap()
                     ->label('Start Date')
                     ->dateTime(),
 
                 TextColumn::make('verification')
                     ->badge()
+                    ->wrap()
+                    ->icon(fn(string $state): string => match ($state) {
+                        'Pending'     => 'heroicon-o-clock',
+                        'Approved'     => 'heroicon-o-check-circle',
+                        'In progress' => 'heroicon-o-arrow-path',
+                        'Finished'    => 'heroicon-o-check-badge',
+                        'Rejected'    => 'heroicon-o-x-circle',
+                        default       => 'heroicon-o-question-mark-circle',
+                    })
                     ->color(fn(string $state) => match ($state) {
                         'Pending' => 'warning',
                         'Approved' => 'info',
