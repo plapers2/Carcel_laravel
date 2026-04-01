@@ -4,6 +4,8 @@ namespace App\Filament\Widgets;
 
 use App\Models\visits as ModelsVisits;
 use Filament\Actions\BulkActionGroup;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
@@ -56,6 +58,19 @@ class GuardTable extends TableWidget
                         'Rejected' => 'danger',
                         default => 'gray',
                     }),
+            ])
+            ->filters([
+                SelectFilter::make('verification')
+                    ->options([
+                        'Pending' => 'Pending',
+                        'Approve' => 'Approved',
+                        'In progress' => 'In Progress',
+                        'Finished' => 'Finished',
+                        'Rejected' => 'Rejected',
+                    ]),
+                Filter::make('today')
+                    ->label('Today only')
+                    ->query(fn($query) => $query->whereDate('start_date', today())),
             ]);
     }
 }
