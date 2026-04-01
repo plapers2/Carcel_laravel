@@ -91,6 +91,9 @@ class VisitsTable
                     ->action(fn($record) => $record->update(['verification' => 'Approved'])),
 
                 Action::make('reject')
+                    ->requiresConfirmation()
+                    ->modalHeading('Reject visit?')
+                    ->modalDescription('This will deny the visitor entry.')
                     ->label('Reject')
                     ->color('danger')
                     ->icon('heroicon-o-x-mark')
@@ -99,6 +102,9 @@ class VisitsTable
 
 
                 Action::make('finish')
+                    ->requiresConfirmation()
+                    ->modalHeading('Finish visit?')
+                    ->modalDescription('Mark this visit as completed.')
                     ->label('Finish')
                     ->color('warning')
                     ->icon('heroicon-o-flag')
