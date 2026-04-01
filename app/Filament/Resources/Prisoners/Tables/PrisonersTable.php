@@ -16,22 +16,29 @@ class PrisonersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('birth_date')
+                    ->wrap()
                     ->date()
                     ->sortable(),
                 TextColumn::make('admission_date')
+                    ->wrap()
                     ->date()
                     ->sortable(),
                 TextColumn::make('offense')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('assigned_cell')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->wrap()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->wrap()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
