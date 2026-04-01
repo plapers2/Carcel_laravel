@@ -15,23 +15,30 @@ class HistorialSessionsTable
         return $table
             ->columns([
                 TextColumn::make('user.name')
+                    ->wrap()
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('start_date')
+                    ->wrap()
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('finish_date')
+                    ->wrap()
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('ip')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('user_agent')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->wrap()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->wrap()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
