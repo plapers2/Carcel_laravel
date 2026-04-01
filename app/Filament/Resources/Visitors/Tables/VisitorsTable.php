@@ -16,14 +16,18 @@ class VisitorsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('identification_number')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->wrap()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->wrap()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
