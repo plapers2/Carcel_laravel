@@ -15,24 +15,31 @@ class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('identification_number')
+                    ->wrap()
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
+                    ->wrap()
                     ->label('Email address')
                     ->searchable(),
                 TextColumn::make('email_verified_at')
+                    ->wrap()
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('rol.name')
+                    ->wrap()
                     ->label('Rol')
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->wrap()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->wrap()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
