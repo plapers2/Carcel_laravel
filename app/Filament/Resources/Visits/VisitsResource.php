@@ -44,7 +44,6 @@ class VisitsResource extends Resource
         return [
             'index' => ListVisits::route('/'),
             'create' => CreateVisits::route('/create'),
-            'edit' => EditVisits::route('/{record}/edit'),
         ];
     }
 }
