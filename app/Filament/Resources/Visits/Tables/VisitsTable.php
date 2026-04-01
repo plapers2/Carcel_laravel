@@ -20,12 +20,22 @@ class VisitsTable
                     ->searchable(),
                 TextColumn::make('start_date')
                     ->dateTime()
+                    ->weight(\Filament\Support\Enums\FontWeight::Bold)
                     ->sortable(),
                 TextColumn::make('end_date')
                     ->dateTime()
+                    ->weight(\Filament\Support\Enums\FontWeight::Bold)
                     ->sortable(),
                 TextColumn::make('verification')
                     ->badge()
+                    ->icon(fn(string $state): string => match ($state) {
+                        'Pending'     => 'heroicon-o-clock',
+                        'Approved'     => 'heroicon-o-check-circle',
+                        'In progress' => 'heroicon-o-arrow-path',
+                        'Finished'    => 'heroicon-o-check-badge',
+                        'Rejected'    => 'heroicon-o-x-circle',
+                        default       => 'heroicon-o-question-mark-circle',
+                    })
                     ->color(fn(string $state) => match ($state) {
                         'Pending' => 'warning',
                         'Approved' => 'info',
