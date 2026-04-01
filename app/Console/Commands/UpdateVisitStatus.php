@@ -27,14 +27,18 @@ class UpdateVisitStatus extends Command
      */
     public function handle()
     {
-        Visits::where('verification', 'In progress')
-            ->where('end_date', '<', Carbon::now())
-            ->update(['verification' => 'Finished']);
+        Visits::whereIn('verification', ['In progress', 'Pending'])
+            ->where('start_date', '>', Carbon::now())
+            ->update(['verification' => 'Pending']);
 
-        Visits::where('verification', 'Finished')
-            ->where('start_date', '<', Carbon::now())
+        Visits::whereIn('verification', ['Pending', 'In progress'])
+            ->where('start_date', '<=', Carbon::now())
             ->where('end_date', '>', Carbon::now())
             ->update(['verification' => 'In progress']);
+
+        Visits::where('verification', 'In progress')
+            ->where('end_date', '<=', Carbon::now())
+            ->update(['verification' => 'Finished']);
 
         $this->info('Visit statuses updated successfully.');
     }

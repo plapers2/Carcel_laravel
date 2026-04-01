@@ -26,6 +26,7 @@ class VisitsTable
                 TextColumn::make('verification')
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
+                        'Pending' => 'gray',
                         'Finished' => 'success',
                         'Rejected' => 'danger',
                         'In progress' => 'warning',
