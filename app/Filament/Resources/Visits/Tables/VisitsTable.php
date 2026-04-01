@@ -17,7 +17,8 @@ class VisitsTable
             ->recordUrl(null)
             ->columns([
                 TextColumn::make('visitor_relationship')
-                    ->searchable(),
+                    ->searchable()
+                    ->wrap(),
                 TextColumn::make('start_date')
                     ->dateTime()
                     ->weight(\Filament\Support\Enums\FontWeight::Bold)
@@ -45,12 +46,15 @@ class VisitsTable
                         default => 'gray',
                     }),
                 TextColumn::make('prisoner.name')
+                    ->wrap()
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('visitor.name')
+                    ->wrap()
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('user.name')
+                    ->wrap()
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
