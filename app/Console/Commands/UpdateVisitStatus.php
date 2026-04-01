@@ -31,7 +31,7 @@ class UpdateVisitStatus extends Command
             ->where('start_date', '>', Carbon::now())
             ->update(['verification' => 'Pending']);
 
-        Visits::whereIn('verification', ['Pending', 'In progress'])
+        Visits::where('verification', 'Approve')
             ->where('start_date', '<=', Carbon::now())
             ->where('end_date', '>', Carbon::now())
             ->update(['verification' => 'In progress']);

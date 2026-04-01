@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Visits\Tables;
 use App\Filament\Resources\Visits\VisitsResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -26,6 +26,7 @@ class VisitsTable
                 TextColumn::make('verification')
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
+                        'Approve' => 'success',
                         'Pending' => 'gray',
                         'Finished' => 'success',
                         'Rejected' => 'danger',
@@ -54,8 +55,27 @@ class VisitsTable
                 //
             ])
             ->recordActions([
-                EditAction::make()
-                    ->url(fn($record) => VisitsResource::getUrl('edit', ['record' => $record])),
+                Action::make('approve')
+                    ->label('Approve')
+                    ->color('success')
+                    ->icon('heroicon-o-check')
+                    ->visible(fn($record) => $record->verification === 'Pending')
+                    ->action(fn($record) => $record->update(['verification' => 'Approve'])),
+
+                Action::make('reject')
+                    ->label('Reject')
+                    ->color('danger')
+                    ->icon('heroicon-o-x-mark')
+                    ->visible(fn($record) => in_array($record->verification, ['Pending', 'Approve']))
+                    ->action(fn($record) => $record->update(['verification' => 'Rejected'])),
+
+
+                Action::make('finish')
+                    ->label('Finish')
+                    ->color('warning')
+                    ->icon('heroicon-o-flag')
+                    ->visible(fn($record) => $record->verification === 'In progress')
+                    ->action(fn($record) => $record->update(['verification' => 'Finished'])),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
