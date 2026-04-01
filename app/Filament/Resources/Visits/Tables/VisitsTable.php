@@ -77,11 +77,6 @@ class VisitsTable
                     ->icon('heroicon-o-flag')
                     ->visible(fn($record) => $record->verification === 'In progress')
                     ->action(fn($record) => $record->update(['verification' => 'Finished'])),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ]);
     }
 }
