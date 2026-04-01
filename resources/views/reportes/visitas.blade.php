@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Reporte de Visitas</title>
@@ -53,55 +54,55 @@
 
 <body>
 
-<h1>Reporte de Visitas</h1>
+    <h1>Reporte de Visitas</h1>
 
-<div class="info">
-    <strong>Date of Generation:</strong> {{ now()->format('d/m/Y H:i') }}
-</div>
+    <div class="info">
+        <strong>Date of Generation:</strong> {{ now()->format('d/m/Y H:i') }}
+    </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Prisoner</th>
-            <th>Visitor</th>
-            <th>RelationShip</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>State</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach($datos as $visita)
-            @php
-                $clase = match($visita->verification) {
-                    'Finished' => 'finished',
-                    'In progress' => 'in-progress',
-                    'Rejected' => 'rejected',
-                    default => ''
-                };
-            @endphp
-
-            <tr class="{{ $clase }}">
-                <td>{{ $visita->prisoner->name }}</td>
-                <td>{{ $visita->visitor->name }}</td>
-                <td>{{ $visita->visitor_relationship }}</td>
-
-                <td>
-                    {{ \Carbon\Carbon::parse($visita->start_date)->format('d/m/Y H:i') }}
-                </td>
-
-                <td>
-                    {{ $visita->end_date
-                        ? \Carbon\Carbon::parse($visita->end_date)->format('d/m/Y H:i')
-                        : 'In progress' }}
-                </td>
-
-                <td>{{ $visita->verification }}</td>
+    <table>
+        <thead>
+            <tr>
+                <th>Prisoner</th>
+                <th>Visitor</th>
+                <th>RelationShip</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>State</th>
             </tr>
-        @endforeach
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+            @foreach ($datos as $visita)
+                @php
+                    $clase = match ($visita->verification) {
+                        'Finished' => 'finished',
+                        'Approved' => 'approved',
+                        'Pending' => 'pending',
+                        'Rejected' => 'rejected',
+                        default => '',
+                    };
+                @endphp
+
+                <tr class="{{ $clase }}">
+                    <td>{{ $visita->prisoner->name }}</td>
+                    <td>{{ $visita->visitor->name }}</td>
+                    <td>{{ $visita->visitor_relationship }}</td>
+
+                    <td>
+                        {{ \Carbon\Carbon::parse($visita->start_date)->format('d/m/Y H:i') }}
+                    </td>
+
+                    <td>
+                        {{ $visita->end_date ? \Carbon\Carbon::parse($visita->end_date)->format('d/m/Y H:i') : 'In progress' }}
+                    </td>
+
+                    <td>{{ $visita->verification }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
 </body>
+
 </html>

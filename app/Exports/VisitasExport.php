@@ -27,7 +27,7 @@ class VisitasExport implements FromCollection, WithHeadings, WithStyles, ShouldA
                 'Start Date' => \Carbon\Carbon::parse($v->start_date)->format('d/m/Y H:i'),
                 'End Date' => $v->end_date
                     ? \Carbon\Carbon::parse($v->end_date)->format('d/m/Y H:i')
-                    : 'In progress',
+                    : 'Pending',
                 'Estado' => $v->verification,
             ];
         });
