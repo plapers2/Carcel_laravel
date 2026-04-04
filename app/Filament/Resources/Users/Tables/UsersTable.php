@@ -29,9 +29,10 @@ class UsersTable
                     ->wrap()
                     ->dateTime()
                     ->sortable(),
-                TextColumn::make('rol.name')
+                TextColumn::make('roles.name')
                     ->wrap()
                     ->label('Rol')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->wrap()

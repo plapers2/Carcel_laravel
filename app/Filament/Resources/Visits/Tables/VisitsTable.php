@@ -21,11 +21,13 @@ class VisitsTable
                     ->wrap(),
                 TextColumn::make('start_date')
                     ->dateTime()
+                    ->searchable()
                     ->weight(\Filament\Support\Enums\FontWeight::Bold)
                     ->sortable(),
                 TextColumn::make('end_date')
                     ->dateTime()
                     ->weight(\Filament\Support\Enums\FontWeight::Bold)
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('verification')
                     ->badge()
@@ -48,14 +50,17 @@ class VisitsTable
                 TextColumn::make('prisoner.name')
                     ->wrap()
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('visitor.name')
                     ->wrap()
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('user.name')
                     ->wrap()
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

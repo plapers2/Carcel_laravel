@@ -21,10 +21,12 @@ class PrisonersTable
                 TextColumn::make('birth_date')
                     ->wrap()
                     ->date()
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('admission_date')
                     ->wrap()
                     ->date()
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('offense')
                     ->wrap()

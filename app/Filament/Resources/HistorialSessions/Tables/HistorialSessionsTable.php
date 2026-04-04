@@ -17,14 +17,17 @@ class HistorialSessionsTable
                 TextColumn::make('user.name')
                     ->wrap()
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('start_date')
                     ->wrap()
+                    ->searchable()
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('finish_date')
                     ->wrap()
                     ->dateTime()
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('ip')
                     ->wrap()
