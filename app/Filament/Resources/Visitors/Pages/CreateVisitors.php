@@ -11,7 +11,7 @@ class CreateVisitors extends CreateRecord
     protected static string $resource = VisitorsResource::class;
     private function validarDocumento(array &$data): void
     {
-        $validation = Visitors::where('identification_number', $data['identification_number'])->get();
+        $validation = Visitors::where('identification_number', $data['identification_number'])->exists();
         if ($validation) {
             \Filament\Notifications\Notification::make()
                 ->title('Error')
