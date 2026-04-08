@@ -93,7 +93,7 @@ class VisitsTable
                     ->color('success')
                     ->icon('heroicon-o-check')
                     ->visible(fn($record) => $record->verification === 'Pending')
-                    ->action(fn($record) => $record->update(['verification' => 'Approved'])),
+                    ->action(fn($record) => $record->update(['verification' => 'Approved', 'users_id' => auth()->id()])),
 
                 Action::make('reject')
                     ->requiresConfirmation()
@@ -103,7 +103,7 @@ class VisitsTable
                     ->color('danger')
                     ->icon('heroicon-o-x-mark')
                     ->visible(fn($record) => in_array($record->verification, ['Pending', 'Approved']))
-                    ->action(fn($record) => $record->update(['verification' => 'Rejected'])),
+                    ->action(fn($record) => $record->update(['verification' => 'Rejected', 'users_id' => auth()->id()])),
 
 
                 Action::make('finish')
@@ -114,7 +114,7 @@ class VisitsTable
                     ->color('warning')
                     ->icon('heroicon-o-flag')
                     ->visible(fn($record) => $record->verification === 'In progress')
-                    ->action(fn($record) => $record->update(['verification' => 'Finished'])),
+                    ->action(fn($record) => $record->update(['verification' => 'Finished', 'users_id' => auth()->id()])),
             ]);
     }
 }
