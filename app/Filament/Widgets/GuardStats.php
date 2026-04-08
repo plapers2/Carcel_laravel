@@ -24,7 +24,7 @@ class GuardStats extends StatsOverviewWidget
             Stat::make(
                 'Approved by me',
                 visits::where('users_id', $userId)
-                    ->where('verification', 'Finished')
+                    ->where('verification', 'Approved')
                     ->count()
             )
                 ->description('Total')
